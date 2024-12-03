@@ -12,8 +12,10 @@ def safety_count(path: str) -> int:
             if error_index == -1:
                 count += 1
             else:
-                # Run check_safety() again on two variations of the list that had a failing interval.
-                # One list will have the left failing value removed, the other will have the right failing value removed.
+                # Run check_safety() again on two variations of the list
+                # that had a failing interval. One list will have the left
+                # failing value removed, the other will have the right 
+                # failing value removed.
                 left_removed = report[:error_index] + report[error_index + 1:]
                 right_removed = report[:error_index + 1] + report[error_index + 2:]
                 if check_safety(left_removed) == -1 or check_safety(right_removed) == -1:
@@ -29,10 +31,10 @@ def check_safety(report: List[int]) -> int:
 
     # Determine if the overall trend of the list is increasing or decreasing.
     trend = 0
-    for i in intervals:
-        if i > 0:
+    for interval in intervals:
+        if interval > 0:
             trend += 1
-        if i < 0:
+        if interval < 0:
             trend -= 1
     # If there is no obvious trend, arbitrarily select increasing.
     if trend == 0:
@@ -48,4 +50,4 @@ def check_safety(report: List[int]) -> int:
             return i
     return -1
 
-print(safety_count("Day 2/input.txt"))
+print(safety_count("day_2/input.txt"))

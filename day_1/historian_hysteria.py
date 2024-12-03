@@ -40,6 +40,6 @@ def get_similarity(left: List[int], right: List[int]) -> int:
 
     return sum
     
-x, y = get_sorted_lists("Day 1/input.txt")
+x, y = get_sorted_lists("day_1/input.txt")
 print(get_distance(x, y))
 print(get_similarity(x, y))
