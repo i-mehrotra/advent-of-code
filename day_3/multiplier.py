@@ -18,4 +18,4 @@ def multiply(path: str):
         sum += item
     return sum
 
-print(multiply("input.txt"))
+print(multiply("day_3/input.txt"))
