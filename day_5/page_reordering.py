@@ -17,20 +17,42 @@ def page_orderer(path: str) -> int:
                     rules.get(first).append(second)
             elif "," in line:
                 line = line.strip("\n").split(",")
-                sum += get_middle(line, rules)
+
+                results = []
+                for i in range(10):
+                    x = get_middle(line, rules)
+                    if i == 0 and x == 0:
+                        sum += 0
+                        break
+                    else:
+                        results.append(x)
+                if 0 in results:
+                    zero_index = results.index(0)
+                    sum += results[zero_index - 1]
     return sum
 
-def get_middle(pages: str, rules: Dict) -> int:
+def get_middle(pages: List[str], rules: Dict) -> int:
+    condition: bool = False
     for i in range(len(pages)):
         pages[i] = int(pages[i])
         number = pages[i]
+        count = 0
         if number in rules.keys():
             followers = rules.get(number)
             for follower in followers:
                 if follower in pages:
                     follower_index = pages.index(follower)
                     if follower_index < i:
-                        return 0
-    return pages[(int(len(pages) / 2))]
+                        condition = True
+                        pages.pop(follower_index)
+                        if count == 0:
+                            pages.insert(i, follower)
+                        else:
+                            pages.insert(pages.index(number) + 1, follower)
+                        count += 1
+    
+    if condition:
+        return pages[(int(len(pages) / 2))]
+    return 0
     
 print(page_orderer("day_5/input.txt"))
