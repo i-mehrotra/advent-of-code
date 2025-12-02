@@ -14,16 +14,19 @@ def parse_input(path: str) -> List[List[str]]:
                 ranges.append(range)
     return ranges
 
+def find_invalid_ids(pattern: str, id: str) -> bool:
+    if id.count(pattern) == len(id) / len(pattern):
+        return True
+    return False
+
 def solve(ids: List[str]) -> int:
     invalid_ids: List[int] = []
     for id in range(int(ids[0]), int(ids[1]) + 1):
-        if len(str(id)) % 2 != 0:
-            continue
+        half_index = len(str(id)) / 2
+        for i in range(1, int(half_index) + 1):
+            if find_invalid_ids(str(id)[0:i], str(id)) and id not in invalid_ids:
+                invalid_ids.append(id)
         
-        half_index = int(len(str(id)) / 2)
-        if str(id)[0:half_index] == str(id)[half_index:]:
-            invalid_ids.append(id)
-    
     sum = 0
     for i in invalid_ids:
         sum += i
